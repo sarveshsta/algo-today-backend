@@ -1,0 +1,24 @@
+{
+  "site_title": "config",
+  "site_header": "config",
+  "site_brand": "config",
+  "copyright": "config",
+  "site_logo_classes": "img-fluid",
+  "site_logo": "images/favicon.png",
+  "site_icon": "images/favicon.png",
+  "login_logo": "images/logo.png",
+  "order_with_respect_to": [
+    "users",
+    "users.User"
+  ],
+  "icons": {
+    "users.User": "fas fa-users",
+    "country.Country": "fas fa-globe"
+  },
+  "hide_apps": [
+    "auth",
+    "core"
+  ],
+  "changeform_format": "single",
+  "custom_css": "admin/css/style.css"
+}
