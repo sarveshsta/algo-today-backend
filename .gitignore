@@ -104,6 +104,7 @@ celerybeat.pid
 # Environments
 .env
 .venv
+algo_env
 env/
 venv/
 ENV/
@@ -133,3 +134,4 @@ dmypy.json
 
 node_modules/
 media/
+migrations/
