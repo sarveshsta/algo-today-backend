@@ -1,4 +1,3 @@
-import os
 from twilio.rest import Client
 from algo.settings import TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN
 
