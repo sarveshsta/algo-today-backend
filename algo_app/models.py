@@ -15,7 +15,6 @@ class Timestamps(models.Model):
         abstract = True
 
 class User(AbstractUser, Timestamps):
-    
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=50, null=False, blank=False, default="")
     phone = models.IntegerField(null=False, blank=False, unique=True, default="", db_index=True)
