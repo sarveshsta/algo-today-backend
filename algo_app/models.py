@@ -1,7 +1,7 @@
 import uuid
 
 from django.contrib.auth.models import (AbstractBaseUser, AbstractUser,
-                                        Group, Permission,)
+                                        Group, Permission, PermissionsMixin)
 from django.db import models
 
 # Create your models here.
@@ -14,11 +14,12 @@ class Timestamps(models.Model):
     class Meta:
         abstract = True
 
-class User(AbstractUser, Timestamps):
+class User(AbstractBaseUser, PermissionsMixin, Timestamps):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=50, null=False, blank=False, default="")
     phone = models.IntegerField(null=False, blank=False, unique=True, default="", db_index=True)
     email = models.EmailField(null=False, blank=False, unique=True, default="")
+    username = models.CharField(null=True, blank=True, default=None, max_length=20)
 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
