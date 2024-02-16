@@ -26,7 +26,7 @@ class User(AbstractBaseUser, PermissionsMixin, Timestamps):
     is_superuser = models.BooleanField(default=False)
     
     USERNAME_FIELD = 'phone'
-    REQUIRED_FIELDS = ['phone', 'name']
+    REQUIRED_FIELDS = ['phone', 'email', 'name']
     def __str__(self):
         if self.phone:
             return self.phone
