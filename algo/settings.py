@@ -127,3 +127,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 TWILIO_ACCOUNT_SID = "AC150a8d3bdef178dc5a791c7211a2c62b"
 TWILIO_AUTH_TOKEN = "7cae03023223e1760bfec461c9d879c9"
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "" #sender's email-id
+EMAIL_HOST_PASSWORD = "" #password associated with above email-id

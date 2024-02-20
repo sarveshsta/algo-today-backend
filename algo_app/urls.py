@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import *
+from .auth_views import *
 
 urlpatterns = [
     path('request-otp/', RequestOTP.as_view()),
