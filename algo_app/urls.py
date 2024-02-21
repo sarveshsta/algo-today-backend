@@ -1,9 +1,11 @@
 from django.urls import path
-from .auth_views import *
+from .views.auth_views import *
 
-urlpatterns = [
+auth_urls = [
     path('request-otp/', RequestOTP.as_view()),
     path('verify-otp/', VerifyOTP.as_view()),
     path('signup/', UserSignup.as_view()),
     path('login/', UserLogin.as_view()),
 ]
+
+urlpatterns = auth_urls

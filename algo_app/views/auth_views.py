@@ -2,17 +2,16 @@ import random
 from datetime import datetime, timedelta
 
 import jwt
-from django.conf import settings
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import login
 from django.contrib.auth.hashers import make_password, check_password
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.db.models import Q
 
-from .models import PhoneOTP, User
-from .utils import send_otp
-from .serilaizers import *
+from ..models import PhoneOTP, User
+from ..utils import send_otp
+from ..serilaizers import *
 
 
 class RequestOTP(APIView):
@@ -113,7 +112,6 @@ class UserSignup(APIView):
         except PhoneOTP.DoesNotExist:
             return Response({"message": "Invalid OTP", "success":False}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
-            print(e)
             return Response({"message": f"Error {e}", "success": False}, status=status.HTTP_400_BAD_REQUEST)
         
 
