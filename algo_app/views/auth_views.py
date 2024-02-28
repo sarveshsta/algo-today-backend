@@ -129,7 +129,7 @@ class ForgotPassword(APIView):
         data = self.request.data
         serializer = self.serialzer_class(data=data)
 
-        if not data.is_valid():
+        if not serializer.is_valid():
             return Response({"message": str(serializer.errors)}, status=status.HTTP_400_BAD_REQUEST)
         
         phone = data['phone']
