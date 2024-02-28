@@ -9,6 +9,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.db.models import Q
 
+
 from ..models import PhoneOTP, User
 from ..utils import send_otp
 from ..serilaizers import *
@@ -142,4 +143,9 @@ class ForgotPassword(APIView):
         except Exception as e:
             return Response({"message": f"Error {e}", "success": False}, status=status.HTTP_400_BAD_REQUEST)
 
+
+class UserLogout(APIView):
+    def post(self, request):
+
+        return Response({"message": "Logout success", "success":True}, status=status.HTTP_200_OK )
                 

@@ -1,7 +1,7 @@
 import uuid
 
-from django.contrib.auth.models import (AbstractBaseUser, AbstractUser,
-                                        Group, Permission, PermissionsMixin)
+from django.contrib.auth.models import (AbstractBaseUser, AbstractUser, Group,
+                                        Permission, PermissionsMixin)
 from django.db import models
 
 # Create your models here.
@@ -43,3 +43,19 @@ class PhoneOTP(Timestamps):
     is_verified = models.BooleanField(default=False)
 
 
+class Wallet(Timestamps):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.ForeignKey(User, verbose_name='User-Wallet', blank=True, 
+                            related_name='user_wallet', on_delete=models.CASCADE)
+    amount = models.IntegerField(default=0)
+
+
+class Strategy(Timestamps):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=30, null=True, blank=True, default="")
+    strategy_id = models.CharField(max_length=40, default=None, blank=True, null=True)
+    description = models.TextField()
+    user = models.ForeignKey(User, verbose_name='User-Strategy', blank=True, 
+                            on_delete=models.CASCADE, related_name='user_strategy')
+    advantages = models.TextField()
+    
