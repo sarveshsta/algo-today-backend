@@ -50,6 +50,7 @@ class VerifyOTP(APIView):
             phoneotp_obj = PhoneOTP.objects.get(phone=phone, otp=otp)
             phoneotp_obj.is_verified = True
             phoneotp_obj.save()
+            return Response({"message": "OTP Verified", "success":True}, status=status.HTTP_200_OK)
         except PhoneOTP.DoesNotExist:
             return Response({"message": "Invalid OTP", "success":False}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
