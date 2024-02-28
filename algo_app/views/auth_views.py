@@ -21,7 +21,6 @@ class RequestOTP(APIView):
         phone = data['phone']
         try:
             otp = random.randint(100000, 999999)
-            send_otp(otp, phone)
             if str(phone) == "9630152559":
                 phoneOTP_obj, create_status = PhoneOTP.objects.get_or_create(phone=phone)
                 phoneOTP_obj.otp = 123456
@@ -29,6 +28,7 @@ class RequestOTP(APIView):
                 phoneOTP_obj.save()
                 return Response({"message": "OTP sent", "success":True, "data":{"otp": 123456}}, status=status.HTTP_200_OK)
 
+            send_otp(otp, phone)
             phoneOTP_obj, create_status = PhoneOTP.objects.get_or_create(phone=phone)
             phoneOTP_obj.otp = otp
             print("OTP", otp)
