@@ -2,7 +2,7 @@ import random
 from datetime import datetime, timedelta
 
 import jwt
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.contrib.auth.hashers import make_password, check_password
 from rest_framework import status
 from rest_framework.response import Response
@@ -146,6 +146,11 @@ class ForgotPassword(APIView):
 
 class UserLogout(APIView):
     def post(self, request):
+        try:
+            print(request.user)
+            logout(request)
+            return Response({"message": "Logout success", "success":True}, status=status.HTTP_200_OK )
+        except Exception as e:
+            return Response({"message": f"Failed to logout - {str(e)}", "success":False}, status=status.HTTP_400_BAD_REQUEST)
 
-        return Response({"message": "Logout success", "success":True}, status=status.HTTP_200_OK )
                 

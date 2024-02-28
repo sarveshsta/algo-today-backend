@@ -6,6 +6,8 @@ auth_urls = [
     path('verify-otp/', VerifyOTP.as_view()),
     path('signup/', UserSignup.as_view()),
     path('login/', UserLogin.as_view()),
+    path('update-password/', ForgotPassword.as_view()),
+    path('logout/', UserLogout.as_view()),
 ]
 
 urlpatterns = auth_urls
