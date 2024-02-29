@@ -17,7 +17,7 @@ class Timestamps(models.Model):
 class User(AbstractBaseUser, PermissionsMixin, Timestamps):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=50, null=False, blank=False, default="")
-    phone = models.IntegerField(null=False, blank=False, unique=True, default="", db_index=True)
+    phone = models.CharField(null=False, blank=False, unique=True, default="", db_index=True)
     email = models.EmailField(null=False, blank=False, unique=True, default="")
     username = models.CharField(null=True, blank=True, default=None, max_length=20)
 
@@ -29,7 +29,7 @@ class User(AbstractBaseUser, PermissionsMixin, Timestamps):
     REQUIRED_FIELDS = ['phone', 'email', 'name']
     def __str__(self):
         if self.phone:
-            return str(self.phone)
+            return self.phone
         elif self.email:
             return self.email
         return f"{self.name} - {self.phone} - {self.email}"
