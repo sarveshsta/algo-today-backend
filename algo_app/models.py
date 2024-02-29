@@ -29,7 +29,7 @@ class User(AbstractBaseUser, PermissionsMixin, Timestamps):
     REQUIRED_FIELDS = ['phone', 'email', 'name']
     def __str__(self):
         if self.phone:
-            return self.phone
+            return str(self.phone)
         elif self.email:
             return self.email
         return f"{self.name} - {self.phone} - {self.email}"
