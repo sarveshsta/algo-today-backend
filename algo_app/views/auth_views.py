@@ -3,16 +3,15 @@ from datetime import datetime, timedelta
 
 import jwt
 from django.contrib.auth import login, logout
-from django.contrib.auth.hashers import make_password, check_password
+from django.contrib.auth.hashers import check_password, make_password
+from django.db.models import Q
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from django.db.models import Q
-
 
 from ..models import PhoneOTP, User
-from ..utils import send_otp
 from ..serilaizers import *
+from ..utils import send_otp
 
 
 class RequestOTP(APIView):
@@ -74,16 +73,16 @@ class UserLogin(APIView):
         try:
             PhoneOTP.objects.get(phone=phone, otp=otp, is_verified=True)
             user = User.objects.get(phone=phone)
-            # user = authenticate(request, username=user.email, password=make_password(password))
+            print(user)
             if check_password(password, user.password):
                 login(request, user)
-                # token = self._generate_jwt_token(user)
                 return Response({"message": "Login successful", "success": True}, status=status.HTTP_200_OK)
             else:
                 return Response({"message": "Invalid credentials", "success": False}, status=status.HTTP_401_UNAUTHORIZED)
         except PhoneOTP.DoesNotExist:
             return Response({"message": "Invalid OTP", "success":False}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
+            print(e)
             return Response({"message": f"Error {e}", "success": False}, status=status.HTTP_400_BAD_REQUEST)
         
     # def _generate_jwt_token(self, user):
@@ -103,6 +102,7 @@ class UserSignup(APIView):
         serializer = self.serialzer_class(data=data)
 
         if not serializer.is_valid():
+            print(serializer.errors)
             return Response({"message": str(serializer.errors)}, status=status.HTTP_400_BAD_REQUEST)
         
         try:
@@ -113,13 +113,18 @@ class UserSignup(APIView):
             password = data['password']
 
             PhoneOTP.objects.get(phone=phone, otp=otp, is_verified=True)
+
             if User.objects.filter(Q(phone=phone)|Q(email=email)).exists():
                 return Response({"message":"Email/Phone already exists", "success":False}, status=status.HTTP_400_BAD_REQUEST)
-            User.objects.create(email=email, phone=phone, name=name, password=make_password(password))
+            
+            user = User.objects.create(email=email, phone=phone, name=name)
+            user.set_password(password)
+            user.save()
             return Response({"message": "Signup successful", "success": True}, status=status.HTTP_201_CREATED)
         except PhoneOTP.DoesNotExist:
             return Response({"message": "Invalid OTP", "success":False}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
+            print(e)
             return Response({"message": f"Error {e}", "success": False}, status=status.HTTP_400_BAD_REQUEST)
         
 
@@ -140,7 +145,8 @@ class ForgotPassword(APIView):
             PhoneOTP.objects.get(phone=phone, otp=otp, is_verified=True)
             user = User.objects.get(phone=phone)
             
-            user.set_password(make_password(password=password))       
+            user.set_password(password)  
+            user.save()     
             return Response({"message": "Password Updated", "success": True}, status=status.HTTP_200_OK)
         except User.DoesNotExist:
             return Response({"message": "User Does not exist", "success":False}, status=status.HTTP_400_BAD_REQUEST)
