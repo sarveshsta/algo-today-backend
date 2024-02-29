@@ -140,11 +140,10 @@ class ForgotPassword(APIView):
             PhoneOTP.objects.get(phone=phone, otp=otp, is_verified=True)
             user = User.objects.get(phone=phone)
             
-            if check_password(password, user.password):
-                user.password = make_password(password=password)       
-                return Response({"message": "Login successful", "success": True}, status=status.HTTP_200_OK)
-            else:
-                return Response({"message": "Invalid credentials", "success": False}, status=status.HTTP_401_UNAUTHORIZED)
+            user.password = make_password(password=password)       
+            return Response({"message": "Password Updated", "success": True}, status=status.HTTP_200_OK)
+        except User.DoesNotExist:
+            return Response({"message": "User Does not exist", "success":False}, status=status.HTTP_400_BAD_REQUEST)
         except PhoneOTP.DoesNotExist:
             return Response({"message": "Invalid OTP", "success":False}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
