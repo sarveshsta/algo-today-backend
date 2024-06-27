@@ -1,9 +1,5 @@
 from twilio.rest import Client
 from algo.settings import TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN
-from django.template.loader import render_to_string
-from django.utils.html import strip_tags
-from django.core import mail
-
 
 def send_otp(otp, to_number):
     client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)

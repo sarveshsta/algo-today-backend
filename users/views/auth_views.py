@@ -1,16 +1,16 @@
 import random
-from datetime import datetime, timedelta
-
-import jwt
 from django.contrib.auth import login, logout
-from django.contrib.auth.hashers import check_password, make_password
+from django.contrib.auth.hashers import check_password
 from django.db.models import Q
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from ..models import PhoneOTP, User
-from ..serilaizers import *
+from ..serilaizers import (
+    LoginSerializer,
+    SignupSerializer,
+)
 from ..utils import send_otp
 
 

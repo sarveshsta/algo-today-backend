@@ -1,14 +1,8 @@
-import jwt
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.hashers import make_password, check_password
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from django.db.models import Q
-
 from ..models import PhoneOTP, User
 from ..utils import send_otp
-from ..serilaizers import *
 
 
 class UserDetails(APIView):
