@@ -16,5 +16,5 @@ class UserStrategy(Timestamps):
 class UserOrders(Timestamps):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     order_id = models.CharField(max_length=50)
-    user = models.ForeignKey(User, verbose_name='User-Strategy', blank=True, 
-                            on_delete=models.CASCADE, related_name='user_strategy')
+    user = models.ForeignKey(User, verbose_name='User-Order', blank=True, 
+                            on_delete=models.CASCADE, related_name='user_order')
