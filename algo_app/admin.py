@@ -1,8 +1,8 @@
 from django.contrib import admin
-from .models import PhoneOTP, User, Wallet, Strategy
+from .models import PhoneOTP, Wallet, Strategy
 
 # Register your models here.
-class UserAdmin(admin.ModelAdmin):
+class AlgoUserAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'email', 'phone')
 
 class PhoneOTPAdmin(admin.ModelAdmin):
@@ -14,7 +14,7 @@ class WalletAdmin(admin.ModelAdmin):
 class StrategyAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'user', 'strategy_id')
 
-# admin.site.register(User, UserAdmin)
+# admin.site.register(AlgoUser, AlgoUserAdmin)
 admin.site.register(PhoneOTP, PhoneOTPAdmin)
 admin.site.register(Wallet, WalletAdmin)
 admin.site.register(Strategy, StrategyAdmin)

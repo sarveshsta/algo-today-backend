@@ -165,4 +165,10 @@ class UserLogout(APIView):
         except Exception as e:
             return Response({"message": f"Failed to logout - {str(e)}", "success":False}, status=status.HTTP_400_BAD_REQUEST)
 
-                
+import requests
+class TradeAPI(APIView):
+    def get(self, request):
+        url = "https://google.com"
+        r = requests.get(url)
+        json_response = r.json()
+        
