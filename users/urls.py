@@ -1,5 +1,12 @@
 from django.urls import path
-from .views.auth_views import *
+from .views.auth_views import (
+    RequestOTP,
+    VerifyOTP,
+    UserSignup,
+    UserLogin,
+    UserLogout,
+    ForgotPassword,
+)
 
 auth_urls = [
     path('request-otp/', RequestOTP.as_view()),
