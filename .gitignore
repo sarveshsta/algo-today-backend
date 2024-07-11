@@ -136,6 +136,6 @@ node_modules/
 media/
 .vscode/
 
-/migrations
-*/migrations
-*/migrations/
+# /migrations
+# */migrations
+# */migrations/
